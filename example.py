@@ -6,7 +6,13 @@ from bokeh.io import curdoc
 from bokeh.models import ColumnDataSource
 
 nodes = ColumnDataSource()
+nodes.data = dict(index=['a', 'b', 'c'],
+                  labels=['Node a', 'Node b', 'Node c'])
+
+
 edges = ColumnDataSource()
+edges.data = {'from': ["a", "a"],
+              'to': ["b", "c"]}
 
 graph = CytoscapeGraph(
     node_source=nodes,

@@ -25,6 +25,12 @@ export class CytoscapeGraphView extends LayoutDOMView
 
     document.body.appendChild(@_css);
 
+    @connect(@model.node_source.change, () =>
+        @update_data();
+    )
+    @connect(@model.edge_source.change, () =>
+        @update_data();
+    )
 
   render: () ->
     super()
@@ -40,7 +46,8 @@ export class CytoscapeGraphView extends LayoutDOMView
       style: [
         {
           selector: 'node',
-          css: {
+          style: {
+            label: 'data(label)',
             'background-color': '#f92411'
           }
         },
@@ -51,17 +58,44 @@ export class CytoscapeGraphView extends LayoutDOMView
           }
         }
       ],
-      elements: [
-        {data: {id: 'a'}},
-        {data: {id: 'b'}},
-        {
-          data: {
-            id: 'ab',
-            source: 'a',
-            target: 'b'
-          }
-        }]
+
     );
+
+    @update_data();
+
+  update_data: () ->
+    node_source = @model.node_source
+
+    @_cy.elements().remove();
+
+    ids = node_source.get_column(@model.node_index)
+    labels = node_source.get_column(@model.node_label)
+
+    for i in [0...node_source.get_length()]
+      entry = {
+        id: ids[i],
+        label: labels[i]
+      }
+      @_cy.add({data: entry});
+
+
+    edge_source = @model.edge_source
+
+    froms = edge_source.get_column('from')
+    tos = edge_source.get_column('to')
+
+
+    for i in [0...edge_source.get_length()]
+      d = {
+        source: froms[i],
+        target: tos[i]
+      }
+
+      @_cy.add({data: d});
+
+    # Re-run layout
+    @_cy.layout({name: "cola"}).run();
+
 
 # We must also create a corresponding JavaScript Backbone model sublcass to
 # correspond to the python Bokeh model subclass. In this case, since we want
@@ -79,4 +113,7 @@ export class CytoscapeGraph extends LayoutDOM
     edge_source: [p.Instance]
     plot_width: [p.Int]
     plot_height: [p.Int]
+
+    node_index: [p.String, "index"]
+    node_label: [p.String, "index"]
   }

@@ -1,4 +1,4 @@
-from bokeh.models import LayoutDOM, Instance, ColumnDataSource, Int
+from bokeh.models import LayoutDOM, Instance, ColumnDataSource, Int, String
 
 
 class CytoscapeGraph(LayoutDOM):
@@ -15,3 +15,7 @@ class CytoscapeGraph(LayoutDOM):
 
     plot_width = Int
     plot_height = Int
+
+    node_index: String(default="index")
+    node_label: String(default="index")
+
