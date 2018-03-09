@@ -1,18 +1,26 @@
-from bokeh.layouts import row
-from bokeh.models import Div, Select, WidgetBox
+from bokeh.layouts import column
+from bokeh.models import Div
 
 from bokehcytoscapecola.cytoscapegraph import CytoscapeGraph
 from bokeh.io import curdoc
 from bokeh.models import ColumnDataSource
 
+# This example uses networkx to generate example graph, but it is not needed for cytoscape
+import networkx as nx
+
+G = nx.random_geometric_graph(200, 0.125)
+node_indices = list(G.nodes.keys())
+edges_from = [e[0] for e in G.edges]
+edges_to = [e[1] for e in G.edges]
+
 nodes = ColumnDataSource()
-nodes.data = dict(index=['a', 'b', 'c'],
-                  labels=['Node a', 'Node b', 'Node c'])
+
+nodes.data = dict(index=node_indices)
 
 
 edges = ColumnDataSource()
-edges.data = {'from': ["a", "a"],
-              'to': ["b", "c"]}
+edges.data = {'from': edges_from,
+              'to': edges_to}
 
 graph = CytoscapeGraph(
     node_source=nodes,
@@ -21,7 +29,7 @@ graph = CytoscapeGraph(
     plot_height=500
 )
 
-div = Div(text="Test")
+div = Div(text="Example of Cytoscapegraph")
 
-curdoc().add_root(row(div,
-                      graph))
+curdoc().add_root(column(div,
+                         graph))

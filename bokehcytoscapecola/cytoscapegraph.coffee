@@ -26,10 +26,10 @@ export class CytoscapeGraphView extends LayoutDOMView
     document.body.appendChild(@_css);
 
     @connect(@model.node_source.change, () =>
-        @update_data();
+      @update_data();
     )
     @connect(@model.edge_source.change, () =>
-        @update_data();
+      @update_data();
     )
 
   render: () ->
@@ -38,9 +38,6 @@ export class CytoscapeGraphView extends LayoutDOMView
 
     @_cy = new cytoscape(
       container: @el,
-      layout: {
-        name: "cola"
-      },
       autounselectify: true,
       boxSelectionEnabled: false,
       style: [
@@ -58,7 +55,6 @@ export class CytoscapeGraphView extends LayoutDOMView
           }
         }
       ],
-
     );
 
     @update_data();
@@ -94,7 +90,10 @@ export class CytoscapeGraphView extends LayoutDOMView
       @_cy.add({data: d});
 
     # Re-run layout
-    @_cy.layout({name: "cola"}).run();
+    @_cy.layout({
+      name: @model.layout_type,
+      options: @model.layout_options
+    }).run();
 
 
 # We must also create a corresponding JavaScript Backbone model sublcass to
@@ -116,4 +115,7 @@ export class CytoscapeGraph extends LayoutDOM
 
     node_index: [p.String, "index"]
     node_label: [p.String, "index"]
+
+    layout_type: [p.String, "cola"]
+    layout_options: [p.Any, {}]
   }

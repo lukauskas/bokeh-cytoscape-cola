@@ -1,5 +1,6 @@
-from bokeh.models import LayoutDOM, Instance, ColumnDataSource, Int, String
+from bokeh.models import LayoutDOM, Instance, ColumnDataSource, Int, String, Any, Dict
 
+_DEFAULT_LAYOUT_OPTIONS = {}
 
 class CytoscapeGraph(LayoutDOM):
 
@@ -19,3 +20,5 @@ class CytoscapeGraph(LayoutDOM):
     node_index: String(default="index")
     node_label: String(default="index")
 
+    layout_type: String(default="cola")
+    layout_options: Dict(String, Any, default=_DEFAULT_LAYOUT_OPTIONS)
