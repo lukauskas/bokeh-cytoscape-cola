@@ -9,5 +9,9 @@ setup(
     license='MIT',
     author='Saulius Lukauskas',
     author_email='saulius.lukauskas@helmholtz-muenchen.de',
-    description=''
+    description='',
+    package_data={
+        'bokehcytoscapecola': ['bokehcytoscapecola/*.coffee']
+    },
+    include_package_data=True,
 )
