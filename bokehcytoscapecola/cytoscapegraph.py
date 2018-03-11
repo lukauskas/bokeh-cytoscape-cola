@@ -6,8 +6,7 @@ class CytoscapeGraph(LayoutDOM):
 
     __implementation__ = 'cytoscapegraph.coffee'
 
-    __javascript__ = ["https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.2.9/cytoscape.js",
-                      #"https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.2.9/cytoscape.min.js",
+    __javascript__ = ["https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.2.9/cytoscape.min.js",
                       "http://marvl.infotech.monash.edu/webcola/cola.v3.min.js",
                       "https://cdn.jsdelivr.net/npm/cytoscape-cola@2.1.0/cytoscape-cola.min.js"]
 
