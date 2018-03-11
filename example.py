@@ -7,6 +7,7 @@ from bokeh.models import ColumnDataSource
 
 # This example uses networkx to generate example graph, but it is not needed for cytoscape
 import networkx as nx
+import numpy as np
 
 G = nx.random_geometric_graph(200, 0.125)
 node_indices = list(G.nodes.keys())
@@ -20,7 +21,8 @@ nodes.data = dict(index=node_indices,
 
 edges = ColumnDataSource()
 edges.data = {'from': edges_from,
-              'to': edges_to}
+              'to': edges_to,
+              'weight': np.arange(len(edges_from))}
 
 graph = CytoscapeGraph(
     node_source=nodes,
@@ -34,7 +36,8 @@ graph = CytoscapeGraph(
     node[type = "b"] { 
         background-color: #d95f02; 
     }
-    """
+    """,
+    ideal_edge_length_function="return e.data().weight + 100;"
 )
 
 div = Div(text="Example of Cytoscapegraph")

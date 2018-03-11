@@ -32,6 +32,12 @@ export class CytoscapeGraphView extends LayoutDOMView
       @update_data();
     )
 
+    @layout_options = @model.layout_options
+
+    if @model.ideal_edge_length_function
+      func = new Function("e", @model.ideal_edge_length_function);
+      @layout_options['edgeLength'] = func;
+
   render: () ->
     super()
 
@@ -86,7 +92,7 @@ export class CytoscapeGraphView extends LayoutDOMView
     # Re-run layout
     @_cy.layout({
       name: @model.layout_type,
-      options: @model.layout_options
+      options: @layout_options
     }).run();
 
 
@@ -113,4 +119,6 @@ export class CytoscapeGraph extends LayoutDOM
     layout_options: [p.Any, {}]
 
     style: [p.String, ""]
+
+    ideal_edge_length_function: [p.String, ""]
   }

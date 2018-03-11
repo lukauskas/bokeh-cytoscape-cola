@@ -1,4 +1,4 @@
-from bokeh.models import LayoutDOM, ColumnDataSource
+from bokeh.models import LayoutDOM, ColumnDataSource, Bool
 from bokeh.core.properties import Instance, Int, String, Any, Dict
 
 _DEFAULT_LAYOUT_OPTIONS = {}
@@ -23,3 +23,9 @@ class CytoscapeGraph(LayoutDOM):
     layout_options = Dict(String, Any, default=_DEFAULT_LAYOUT_OPTIONS)
 
     style = String(default="")
+
+    # Allows encoding of edge length option in layout as a function
+    # The value gets inserted into the following code block
+    # func = new Function(e, [[value]]);
+    # The function should take e (the edge) as parameter and return the desired length.
+    ideal_edge_length_function = String(default="")
