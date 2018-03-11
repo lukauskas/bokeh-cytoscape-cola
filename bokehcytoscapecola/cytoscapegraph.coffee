@@ -50,25 +50,36 @@ export class CytoscapeGraphView extends LayoutDOMView
     @_cy.elements().remove();
 
     ids = node_source.get_column(@model.node_index)
-
     for i in [0...node_source.get_length()]
       entry = {
         id: ids[i],
       }
-      @_cy.add({data: entry});
 
+      for col, vals of node_source.data
+        if col == @model.node_index
+          continue
+
+        entry[col] = vals[i];
+
+
+      @_cy.add({data: entry});
 
     edge_source = @model.edge_source
 
     froms = edge_source.get_column('from')
     tos = edge_source.get_column('to')
 
-
     for i in [0...edge_source.get_length()]
       d = {
         source: froms[i],
         target: tos[i]
       }
+
+      for col, vals of edge_source.data
+        if (col == 'from') || (col == "to")
+          continue
+
+        d[col] = vals[i];
 
       @_cy.add({data: d});
 
