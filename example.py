@@ -17,7 +17,6 @@ nodes = ColumnDataSource()
 
 nodes.data = dict(index=node_indices)
 
-
 edges = ColumnDataSource()
 edges.data = {'from': edges_from,
               'to': edges_to}
@@ -26,7 +25,8 @@ graph = CytoscapeGraph(
     node_source=nodes,
     edge_source=edges,
     plot_width=500,
-    plot_height=500
+    plot_height=500,
+    style="""node { background-color: green; }"""
 )
 
 div = Div(text="Example of Cytoscapegraph")

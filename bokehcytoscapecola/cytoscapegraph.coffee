@@ -34,7 +34,6 @@ export class CytoscapeGraphView extends LayoutDOMView
 
   render: () ->
     super()
-    console.log(@el.clientWidth);
 
     @_cy = new cytoscape(
       container: @el,
