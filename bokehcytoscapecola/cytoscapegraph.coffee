@@ -40,21 +40,7 @@ export class CytoscapeGraphView extends LayoutDOMView
       container: @el,
       autounselectify: true,
       boxSelectionEnabled: false,
-      style: [
-        {
-          selector: 'node',
-          style: {
-            label: 'data(label)',
-            'background-color': '#f92411'
-          }
-        },
-        {
-          selector: 'edge',
-          css: {
-            'line-color': '#f92411'
-          }
-        }
-      ],
+      style: @model.style,
     );
 
     @update_data();
@@ -65,12 +51,10 @@ export class CytoscapeGraphView extends LayoutDOMView
     @_cy.elements().remove();
 
     ids = node_source.get_column(@model.node_index)
-    labels = node_source.get_column(@model.node_label)
 
     for i in [0...node_source.get_length()]
       entry = {
         id: ids[i],
-        label: labels[i]
       }
       @_cy.add({data: entry});
 
@@ -114,8 +98,9 @@ export class CytoscapeGraph extends LayoutDOM
     plot_height: [p.Int]
 
     node_index: [p.String, "index"]
-    node_label: [p.String, "index"]
 
     layout_type: [p.String, "cola"]
     layout_options: [p.Any, {}]
+
+    style: [p.String, ""]
   }

@@ -17,7 +17,7 @@ class CytoscapeGraph(LayoutDOM):
     plot_height = Int
 
     node_index: String(default="index")
-    node_label: String(default="index")
-
     layout_type: String(default="cola")
     layout_options: Dict(String, Any, default=_DEFAULT_LAYOUT_OPTIONS)
+
+    style: String(default="")
