@@ -25,11 +25,14 @@ export class CytoscapeGraphView extends LayoutDOMView
 
     document.body.appendChild(@_css);
 
+    @nodes_updated = false;
+    @edges_updated = false;
+
     @connect(@model.node_source.change, () =>
-      @update_data();
+      @try_update_data('nodes');
     )
     @connect(@model.edge_source.change, () =>
-      @update_data();
+      @try_update_data('edges');
     )
 
     @layout_options = @model.layout_options
@@ -49,6 +52,20 @@ export class CytoscapeGraphView extends LayoutDOMView
     );
 
     @update_data();
+
+
+  try_update_data: (updated_source) ->
+
+    # Do not re-render unless both nodes and edges updated
+    if updated_source == 'nodes'
+      @nodes_updated = true
+
+    if updated_source == 'edges'
+      @edges_updated = true
+
+    if @nodes_updated && @edges_updated
+      @update_data()
+
 
   update_data: () ->
     node_source = @model.node_source
@@ -94,6 +111,9 @@ export class CytoscapeGraphView extends LayoutDOMView
       name: @model.layout_type,
       options: @layout_options
     }).run();
+
+    @nodes_updated = false;
+    @edges_updated = false;
 
 
 # We must also create a corresponding JavaScript Backbone model sublcass to
