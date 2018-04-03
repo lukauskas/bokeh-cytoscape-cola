@@ -39,7 +39,11 @@ export class CytoscapeGraphView extends LayoutDOMView
 
     if @model.ideal_edge_length_function
       func = new Function("e", @model.ideal_edge_length_function);
-      @layout_options['edgeLength'] = func;
+
+      if @model.layout_type == "cola"
+        @layout_options['edgeLength'] = func
+      else
+        console.warn("Ideal edge length function ignored as we don't know how to apply it to the layout");
 
   render: () ->
     super()
@@ -106,11 +110,12 @@ export class CytoscapeGraphView extends LayoutDOMView
 
       @_cy.add({data: d});
 
+    lyt = {name: @model.layout_type}
+    for k, v of @layout_options
+      lyt[k] = v
+
     # Re-run layout
-    @_cy.layout({
-      name: @model.layout_type,
-      options: @layout_options
-    }).run();
+    @_cy.layout(lyt).run();
 
     @nodes_updated = false;
     @edges_updated = false;

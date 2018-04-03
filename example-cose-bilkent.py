@@ -55,7 +55,8 @@ graph = CytoscapeGraph(
         background-color: #d95f02; 
     }
     """,
-    ideal_edge_length_function="return e.data().weight * 100;"
+   layout_type="cose-bilkent",
+   layout_options=dict(animate='end'),
 )
 
 div = Div(text="Example of Cytoscapegraph")
