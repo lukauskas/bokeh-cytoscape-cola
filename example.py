@@ -1,5 +1,7 @@
-from bokeh.layouts import column
-from bokeh.models import Div
+import random
+
+from bokeh.layouts import column, row, widgetbox
+from bokeh.models import Div, Button
 
 from bokehcytoscapecola.cytoscapegraph import CytoscapeGraph
 from bokeh.io import curdoc
@@ -9,20 +11,36 @@ from bokeh.models import ColumnDataSource
 import networkx as nx
 import numpy as np
 
-G = nx.random_geometric_graph(200, 0.125)
-node_indices = list(G.nodes.keys())
-edges_from = [e[0] for e in G.edges]
-edges_to = [e[1] for e in G.edges]
+nodes = ColumnDataSource(dict(index=[],
+                              type=[]))
+edges = ColumnDataSource(dict({'from': [],
+                               'to': [],
+                               'weight': []}))
 
-nodes = ColumnDataSource()
 
-nodes.data = dict(index=node_indices,
-                  type=['a', 'b'] * 100)
+def generate_random_graph():
 
-edges = ColumnDataSource()
-edges.data = {'from': edges_from,
-              'to': edges_to,
-              'weight': np.arange(len(edges_from))}
+    n = random.randint(1, 200)
+
+    random_graph = nx.random_geometric_graph(n, 0.125)
+
+    node_indices = list(random_graph.nodes.keys())
+    edges_from = [e[0] for e in random_graph.edges]
+    edges_to = [e[1] for e in random_graph.edges]
+    weights = np.random.randn(len(random_graph.edges))
+
+    nodes.data = dict(index=node_indices,
+                      type=np.random.choice(['a', 'b'], n))
+
+    edges.data = {'from': edges_from,
+                  'to': edges_to,
+                  'weight': weights}
+
+
+button = Button(label="Randomise!")
+button.on_click(generate_random_graph)
+
+generate_random_graph()
 
 graph = CytoscapeGraph(
     node_source=nodes,
@@ -42,5 +60,4 @@ graph = CytoscapeGraph(
 
 div = Div(text="Example of Cytoscapegraph")
 
-curdoc().add_root(column(div,
-                         graph))
+curdoc().add_root(row(widgetbox(button), column(div, graph)))
