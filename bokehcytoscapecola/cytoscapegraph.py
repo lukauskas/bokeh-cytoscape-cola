@@ -8,9 +8,9 @@ class CytoscapeGraph(LayoutDOM):
 
     __implementation__ = 'cytoscapegraph.coffee'
 
-    __javascript__ = ["https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.2.9/cytoscape.min.js",
+    __javascript__ = ["https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.4.2/cytoscape.min.js",
                       "http://marvl.infotech.monash.edu/webcola/cola.v3.min.js",
-                      "https://cdn.jsdelivr.net/npm/cytoscape-cola@2.1.0/cytoscape-cola.min.js",
+                      "https://cdn.jsdelivr.net/npm/cytoscape-cola@2.3.0/cytoscape-cola.min.js",
                       'https://cdn.jsdelivr.net/npm/cytoscape-cose-bilkent@4.0.0/cytoscape-cose-bilkent.min.js']
 
     node_source = Instance(ColumnDataSource)
