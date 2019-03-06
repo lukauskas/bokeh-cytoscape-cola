@@ -1,4 +1,4 @@
-from bokeh.models import LayoutDOM, ColumnDataSource, Bool
+from bokeh.models import LayoutDOM, ColumnDataSource
 from bokeh.core.properties import Instance, Int, String, Any, Dict
 
 _DEFAULT_LAYOUT_OPTIONS = {}
