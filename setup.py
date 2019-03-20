@@ -11,7 +11,7 @@ setup(
     author_email='saulius.lukauskas@helmholtz-muenchen.de',
     description='',
     package_data={
-        'bokehcytoscapecola': ['bokehcytoscapecola/*.coffee']
+        'bokehcytoscapecola': ['bokehcytoscapecola/*.ts']
     },
     include_package_data=True,
 )
