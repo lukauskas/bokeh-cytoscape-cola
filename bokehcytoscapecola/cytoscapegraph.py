@@ -6,7 +6,7 @@ _DEFAULT_LAYOUT_OPTIONS = {}
 
 class CytoscapeGraph(LayoutDOM):
 
-    __implementation__ = 'cytoscapegraph.coffee'
+    __implementation__ = 'cytoscapegraph.ts'
 
     __javascript__ = ["https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.4.2/cytoscape.min.js",
                       "http://marvl.infotech.monash.edu/webcola/cola.v3.min.js",
@@ -15,9 +15,6 @@ class CytoscapeGraph(LayoutDOM):
 
     node_source = Instance(ColumnDataSource)
     edge_source = Instance(ColumnDataSource)
-
-    plot_width = Int
-    plot_height = Int
 
     node_index = String(default="index")
     layout_type = String(default="cola")

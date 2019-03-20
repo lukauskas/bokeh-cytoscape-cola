@@ -45,8 +45,8 @@ generate_random_graph()
 graph = CytoscapeGraph(
     node_source=nodes,
     edge_source=edges,
-    plot_width=500,
-    plot_height=500,
+    width=500,
+    height=500,
     style="""
     node[type = "a"] { 
         background-color: #1b9e77; 
@@ -57,6 +57,7 @@ graph = CytoscapeGraph(
     """,
    layout_type="cose-bilkent",
    layout_options=dict(animate='end'),
+   sizing_mode='scale_both',
 )
 
 div = Div(text="Example of Cytoscapegraph")
